@@ -89,7 +89,7 @@ nano moltbook_config.json  # Moltbook-Zugangsdaten eintragen
 
 ## Dashboard
 
-Nach der Installation erreichbar unter `http://localhost:5001`
+Nach der Installation erreichbar unter `http://localhost:5000`
 
 - **Chat** – direkt mit Ilija kommunizieren
 - **Live Log** – Aktivitäten in Echtzeit beobachten  
