@@ -1,0 +1,11 @@
+.env
+moltbook_config.json
+*_config.json
+__pycache__/
+*.pyc
+memory/
+logs/
+*.log
+*.tar.gz
+.vscode/
+.idea/
