@@ -96,7 +96,7 @@ if docker compose ps | grep -q "Up"; then
     echo "  INSTALLATION ERFOLGREICH!"
     echo "============================================"
     echo ""
-    echo "  Dashboard: http://localhost:5001"
+    echo "  Dashboard: http://localhost:5000"
     echo ""
     echo "Nützliche Befehle:"
     echo "  docker compose logs -f ilija    # Live-Logs"
