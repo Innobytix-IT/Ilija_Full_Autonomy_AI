@@ -68,7 +68,7 @@ cd Ilija-Full-Autonomy
 bash INSTALL.sh
 ```
 
-Danach Dashboard öffnen: **http://localhost:5001**
+Danach Dashboard öffnen: **http://localhost:5000**
 
 ## Voraussetzungen
 
