@@ -1,0 +1,83 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Ilija Full_Autonomy_Edition – Docker Compose Stack
+# ─────────────────────────────────────────────────────────────────────────────
+# Starten:  docker-compose up -d
+# Logs:     docker-compose logs -f ilija
+# Stop:     docker-compose down
+# ─────────────────────────────────────────────────────────────────────────────
+
+version: "3.9"
+
+services:
+  ilija:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ilija_full_autonomy
+    restart: unless-stopped
+
+    environment:
+      # LLM-API Keys (in .env oder hier direkt setzen)
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+
+      # Moltbook
+      - MOLTBOOK_API_KEY=${MOLTBOOK_API_KEY:-}
+
+      # Telegram (optional)
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+
+      # Betriebskonfiguration
+      - AUTONOMY_MODE=full
+      - GOAL_BATCH_SIZE=3
+      - CYCLE_PAUSE_SECONDS=30
+      - MAX_ITERATIONS=50
+      - EVOLUTION_SNAPSHOT_HOURS=24
+      - WEB_INTERFACE=true
+      - LLM_PROVIDER=auto
+
+    volumes:
+      # Persistente Daten bleiben über Container-Neustarts erhalten
+      - ilija_skills:/ilija/skills
+      - ilija_memory:/ilija/memory
+      - ilija_logs:/ilija/logs
+      - ilija_data:/ilija/data
+
+    ports:
+      # Web-Dashboard
+      - "5000:5000"
+
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os; assert os.path.exists('logs/ilija_full_autonomy.log')"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+    # Ressourcen-Limits für die VM/Container-Umgebung
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 4G
+        reservations:
+          cpus: "0.5"
+          memory: 1G
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+
+volumes:
+  ilija_skills:
+    driver: local
+  ilija_memory:
+    driver: local
+  ilija_logs:
+    driver: local
+  ilija_data:
+    driver: local
