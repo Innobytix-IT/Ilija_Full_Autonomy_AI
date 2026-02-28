@@ -63,7 +63,7 @@ Ilija ist ein autonomer KI-Agent der ohne menschliche Eingriffe:
 ## Schnellstart
 
 ```bash
-git clone https://github.com/DEIN_USERNAME/Ilija-Full-Autonomy.git
+git clone https://github.com/Innobytix-IT/Ilija-Full-Autonomy.git
 cd Ilija-Full-Autonomy
 bash INSTALL.sh
 ```
